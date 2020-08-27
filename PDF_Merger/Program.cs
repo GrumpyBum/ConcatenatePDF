@@ -43,6 +43,7 @@ namespace PdfBuilder
                 {
                     case 1:
                         DualRun();
+                        exitApplication = 1;
                         break;
                     case 2:
                         Console.WriteLine("This Feature is NOT Currently Available (Sorry)");
@@ -122,6 +123,7 @@ namespace PdfBuilder
             while (true)
             {
                 Console.WriteLine();
+
                 if (String.IsNullOrEmpty(pdfOut))
                 {
                     Console.WriteLine("Output File: Not Defined");
@@ -131,8 +133,23 @@ namespace PdfBuilder
                     Console.WriteLine("Output File: " + pdfOut);
                 }
 
-                Console.WriteLine("First Document: Not Defined");
-                Console.WriteLine("Second Document: Not Defined");
+                if (String.IsNullOrEmpty(pdfOne))
+                {
+                    Console.WriteLine("First Document: Not Defined");
+                }
+                else
+                {
+                    Console.WriteLine("Output File: " + pdfOne);
+                }
+
+                if (String.IsNullOrEmpty(pdfTwo))
+                {
+                    Console.WriteLine("Second Document: Not Defined");
+                }
+                else
+                {
+                    Console.WriteLine("Output File: " + pdfTwo);
+                }
 
                 Console.WriteLine();
                 Console.WriteLine("1. Define Output File");
@@ -140,7 +157,7 @@ namespace PdfBuilder
                 Console.WriteLine("3. Define Second Document");
                 Console.WriteLine("4. Build New PDF Document");
                 Console.WriteLine("5. Get Help or View Read Me");
-                Console.WriteLine("6. Exit Application");
+                Console.WriteLine("6. Exit To Main Menu");
                 Console.WriteLine();
 
                 int nextTask = 0;
@@ -168,11 +185,13 @@ namespace PdfBuilder
                 }
 
                 int exitApplication = 0;
+                String dataInput = null;
+
                 switch (nextTask)
                 {
                     case 1:
                         Console.Write("Please Enter Output Path: ");
-                        String dataInput = Console.ReadLine();
+                        dataInput = Console.ReadLine();
                         Console.WriteLine();
 
                         if (dataInput.EndsWith(".pdf"))
@@ -212,6 +231,50 @@ namespace PdfBuilder
                         }
                         
                         break;
+                    case 2:
+                        Console.Write("Please Enter First File Path: ");
+                        dataInput = Console.ReadLine();
+                        Console.WriteLine();
+
+                        if (dataInput.EndsWith(".pdf"))
+                        {
+                            if (File.Exists(dataInput))
+                            {
+                                pdfOne = dataInput;
+                            }
+                            else
+                            {
+                                Console.WriteLine("File Not Found, Please Review Input!");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("User Defined Input File is NOT a PDF, Please Reenter Data!");
+                        }
+
+                        break;
+                    case 3:
+                        Console.Write("Please Enter Second File Path: ");
+                        dataInput = Console.ReadLine();
+                        Console.WriteLine();
+
+                        if (dataInput.EndsWith(".pdf"))
+                        {
+                            if (File.Exists(dataInput))
+                            {
+                                pdfTwo = dataInput;
+                            }
+                            else
+                            {
+                                Console.WriteLine("File Not Found, Please Review Input!");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("User Defined Input File is NOT a PDF, Please Reenter Data!");
+                        }
+
+                        break;
                     case 4:
                         if (String.IsNullOrEmpty(pdfOut) || String.IsNullOrEmpty(pdfOne) || String.IsNullOrEmpty(pdfTwo)) {
                             Console.WriteLine("Data is Missing, Please Review! PDF Not Built!");
@@ -230,7 +293,7 @@ namespace PdfBuilder
                                     Console.WriteLine("PDF File Creation Failed!");
                                 }
                                 Console.WriteLine();
-                                Console.Write("Exit Application? (Y/N) :");
+                                Console.Write("Exit Utility to Main Menu? (Y/N) :");
                                 String exitApp = Console.ReadLine();
                                 if ((exitApp.ToUpper()).StartsWith("Y") || (exitApp.ToUpper()).Equals("Y"))
                                 {
@@ -242,6 +305,9 @@ namespace PdfBuilder
                                 Console.WriteLine("Error Occured, Please See Help Menu");
                             }
                         }
+                        break;
+                    case 5:
+                        Console.WriteLine("Data Missing, Feature not Available");
                         break;
                     case 6:
                         exitApplication = 1;
@@ -260,10 +326,10 @@ namespace PdfBuilder
             Console.WriteLine("            Updated in C# for .NET Framework 4.8 with Visual Studio 2019 v16.7.2");
             Console.WriteLine("            Tasked to Merge PDF Documents into a Single PDF as Required");
             Console.WriteLine();
-            Console.WriteLine("Built by GrumpyBum for Dad (With Love) - https://github.com/GrumpyBum");
+            Console.WriteLine("Built by GrumpyBum for Dad (With Love) - https://github.com/GrumpyBum/ConcatenatePDF");
             Console.WriteLine("With Credit to iTextSharp NuGet - https://github.com/schourode/iTextSharp-LGPL");
             // Please do not remove credits, to modify further please fork over build new. Thank you.
-            // Console.WriteLine("With Credit, Forked from GrumpyBum - https://github.com/GrumpyBum");
+            // Console.WriteLine("With Credit, Forked from GrumpyBum - https://github.com/GrumpyBum/ConcatenatePDF");
             Console.WriteLine();
         }
     }
